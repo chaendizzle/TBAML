@@ -1,0 +1,118 @@
+start room START
+
+print You're surrounded in hazy fog, but you can see a cave in front of you to the north.
+
+verb go, move, run, walk
+{
+	noun .*
+	{
+		move noun
+	}
+}
+
+verb look
+{
+	print You're in the world.
+}
+
+verb .*
+{
+	print I don't know how to do that.
+}
+
+room START
+{
+	name hazy fog
+	desc a mass of hazy fog
+
+	verb look, examine
+	{
+		print You're surrounded in hazy fog, but you can see a cave in front of you to the north.
+	}
+
+	exits
+	{
+		north ENT
+		south START
+		east START
+		west START
+	}
+}
+
+room ENT
+{
+	name cave entrance
+	desc dark, foggy cave
+
+	verb look, examine
+	{
+		print You don't think you can go back, but you can see a bright light to the north.
+	}
+
+	verb go, move, run, walk
+	{
+		noun south
+		{
+			print You try to go walk back, but you just end up in the entrance of the cave again.
+			move noun
+		}
+		noun north
+		{
+			move noun
+		}
+	}
+
+	exits
+	{
+		south ENT
+		north PUZZ
+	}
+}
+
+room PUZZ
+{
+	name sphinx's lair
+	desc sphinx's lair
+
+	exits
+	{
+		D DEATH
+	}
+
+	verb look, examine
+	{
+		print There is a sphinx in front of you.
+	}
+
+	verb take, steal
+	{
+		noun sphinx
+		{
+			print You are clearly mentally deranged.
+		}
+	}
+
+	verb attack, kill
+	{
+		noun sphinx
+		{
+			print You died.
+			if (life == "die")
+			{
+
+			}
+			move D
+		}
+	}
+}
+
+room DEATH
+{
+	name the underworld
+	desc the world of the dead
+
+	verb look, examine
+	{
+		print You are dead.
+	}
+}
